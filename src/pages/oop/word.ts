@@ -10,24 +10,9 @@ export class WordGame {
     this.word = word;
     this.randomWord = this.randomString();
   }
-  getWord() {
-    return this.word;
-  }
-  getRandomWord() {
-    return this.randomWord;
-  }
-  isCorrect(answer: string) {
-    return this.word == answer;
-  }
-  private removeStringAtIndex(word: string, index: number) {
-    return (
-      word.substring(this.FIRST_INDEX, index) +
-      word.substring(index + this.NEXT_INDEX)
-    );
-  }
   private removeHasTyping(answer: string, word: string): string {
     if (this.isEmpty(answer)) return word;
-    const firstCharAnswer = answer[0];
+    const firstCharAnswer = answer[this.FIRST_INDEX];
     const answerDeleted = this.removeStringAtIndex(answer, this.FIRST_INDEX);
     const indexNeedToRemove = word.indexOf(firstCharAnswer);
     if (this.isNotFound(indexNeedToRemove))
@@ -43,6 +28,23 @@ export class WordGame {
     const remain = this.removeStringAtIndex(word, index);
     return selectedValue + this.randomStringHelper(remain);
   }
+  private removeStringAtIndex(word: string, index: number) {
+    return (
+      word.substring(this.FIRST_INDEX, index) +
+      word.substring(index + this.NEXT_INDEX)
+    );
+  }
+
+  getWord() {
+    return this.word;
+  }
+  getRandomWord() {
+    return this.randomWord;
+  }
+  isCorrect(answer: string) {
+    return this.word == answer;
+  }
+
   remainWord(answer: string) {
     return this.removeHasTyping(answer, this.randomWord);
   }
